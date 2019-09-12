@@ -1,7 +1,7 @@
-﻿using BYO.Domain;
+﻿using MYOB.Demo.Domain;
 using System.Linq;
 
-namespace BYO.Service
+namespace MYOB.Demo.Service
 {
     public interface ISalaryRateHandlersService
     {

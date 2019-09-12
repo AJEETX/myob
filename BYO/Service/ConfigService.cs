@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace BYO.Service
+namespace MYOB.Demo.Service
 {
     public interface IConfigService
     {

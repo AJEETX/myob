@@ -1,8 +1,8 @@
-﻿using BYO.Model;
+﻿using MYOB.Demo.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BYO.Service
+namespace MYOB.Demo.Service
 {
     public interface ISalaryService
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace BYO.Model
+namespace MYOB.Demo.Model
 {
     public class EmployeeDetails
     {

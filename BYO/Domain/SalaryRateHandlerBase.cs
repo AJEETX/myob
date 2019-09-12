@@ -1,12 +1,11 @@
-﻿using BYO.Model;
+﻿using MYOB.Demo.Model;
 using System;
-using System.Collections.Generic;
 
-namespace BYO.Domain
+namespace MYOB.Demo.Domain
 {
     public abstract class SalaryRateHandlerBase
     {
-        int totalMonthInYear = 12;
+        const int totalMonthInYear = 12;
         protected SalaryRateHandlerBase _nextHandler;
         public abstract decimal LowerSalary { get; set; }
         public abstract decimal UpperSalary { get; set; }
@@ -38,15 +37,5 @@ namespace BYO.Domain
             else return  null; 
         }
     }
-    public class SalaryRateHandler : SalaryRateHandlerBase
-    {
-        public override decimal LowerSalary { get ; set; }
-        public override decimal UpperSalary { get; set; }
-        public override decimal Taxbase { get; set; }
-        public override decimal TaxRate { get; set; }
-    }
-    public class SalaryRateHandlers
-    {
-        public IList<SalaryRateHandler> SalaryRateHandlerList { get; set; }
-    }
+
 }

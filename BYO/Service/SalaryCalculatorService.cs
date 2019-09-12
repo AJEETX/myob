@@ -1,9 +1,9 @@
-﻿using BYO.Domain;
-using BYO.Model;
+﻿using MYOB.Demo.Domain;
+using MYOB.Demo.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BYO.Service
+namespace MYOB.Demo.Service
 {
     public interface ISalaryCalculatorService
     {

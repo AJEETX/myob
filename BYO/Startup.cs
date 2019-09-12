@@ -1,14 +1,12 @@
 ﻿using Swashbuckle.AspNetCore.Examples;
-using BYO.Service;
+using MYOB.Demo.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using BYO.Model;
-using System.Collections.Generic;
 
-namespace BYO
+namespace MYOB.Demo
 {
     public class Startup
     {
@@ -25,9 +23,8 @@ namespace BYO
                 .AddScoped<ISalaryService, SalaryService>()
                 .AddScoped<ISalaryCalculatorService, SalaryCalculatorService>();
             services.AddSwaggerGen(config => {
-                config.SwaggerDoc("v1", new Info { Title = "Azy API", Version = "V1" });
+                config.SwaggerDoc("v1", new Info { Title = "MYOB Demo API", Version = "V1" });
                 config.OperationFilter<ExamplesOperationFilter>();
-                //config.OperationFilter<DescriptionOperationFilter>();
             });
 
             services.AddMvc();
@@ -36,19 +33,8 @@ namespace BYO
         {
             app.UseHttpsRedirection();
             app.UseMvc().UseSwagger().UseSwaggerUI(config => {
-                config.SwaggerEndpoint("/swagger/v1/swagger.json", "Azy API");
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "MYOB Demo API");
             });
-        }
-    }
-    public class PayslipRequestExample : IExamplesProvider
-    {
-        public object GetExamples()
-        {
-            var sampleEmployees = new List<EmployeeDetails>();
-            sampleEmployees.Add(new EmployeeDetails { FirstName = "David", LastName = "Rudd", AnnualSalary = 60050, SuperRate = 9, PaymentStartDate = "01 March - 31 March" });
-            sampleEmployees.Add(new EmployeeDetails { FirstName = "Ryan", LastName = "Chen", AnnualSalary = 120000, SuperRate = 10, PaymentStartDate = "01 March - 31 March" });
-
-            return sampleEmployees;
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BYO.Model;
-using BYO.Service;
+using MYOB.Demo.Helper;
+using MYOB.Demo.Model;
+using MYOB.Demo.Service;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Examples;
 
-namespace BYO.Controllers
+namespace MYOB.Demo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,7 +27,7 @@ namespace BYO.Controllers
         [SwaggerRequestExample(typeof(IEnumerable<EmployeeDetails>), typeof(PayslipRequestExample))]
         public IActionResult Post(IEnumerable<EmployeeDetails> json)
         {
-            if ((json == null || json.Count()==0)) return BadRequest();
+            if ((!ModelState.IsValid || json == null || json.Count()==0)) return BadRequest();
             {
                 try
                 {

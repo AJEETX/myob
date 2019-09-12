@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BYO.Model
+namespace MYOB.Demo.Model
 {
     public class EmployeePaySlip
     {
