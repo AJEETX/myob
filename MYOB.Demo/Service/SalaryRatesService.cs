@@ -26,7 +26,7 @@ namespace MYOB.Demo.Service
                         salaryRateHandler= GetSalaryHandler();
                     }
                 }
-                catch(Exception eooooooooooo)
+                catch
                 {
                     // Yell    Log    Catch  Throw  
                 }
