@@ -1,6 +1,5 @@
 # salary calculator
 
-
 ### Problem statement
 
 ```
@@ -100,8 +99,3 @@ For better experience please chrome browser
 >   
 >   2. To run the tests, open the `Test Explorer` window and run those discovered tests.
 
-
-
-### Support or Contact
-
-Having any trouble? Please read out this [documentation](https://github.com/AJEETX/myob/blob/master/README.md) or [contact](mailto:ajeetkumar@email.com) and to sort it out.
