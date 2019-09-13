@@ -7,34 +7,45 @@ namespace MYOB.Demo.Domain
     {
         const int totalMonthInYear = 12;
         protected SalaryRateHandlerBase _nextHandler;
-        public abstract decimal LowerSalary { get; set; }
-        public abstract decimal UpperSalary { get; set; }
+        public abstract decimal LowerSalaryLimit { get; set; }
+        public abstract decimal UpperSalaryLimit { get; set; }
         public abstract decimal Taxbase { get; set; }
         public abstract decimal TaxRate { get; set; }
-        public void SetNextHandler(SalaryRateHandlerBase nextHandler)
+        public void SetNextSalaryRateHandler(SalaryRateHandlerBase nextHandler)
         {
             _nextHandler = nextHandler;
         }
-        public EmployeePaySlip CalculateSalary(EmployeeDetails input)
+        public EmployeePaySlip CalculateSalary(EmployeeDetails  employeeDetails)
         {
-            if (input == null || input.AnnualSalary==0) return null;
+            EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
-            if (input.AnnualSalary > LowerSalary && (input.AnnualSalary <= UpperSalary ))
+            if (employeeDetails == null || employeeDetails.AnnualSalary==0) return employeePaySlip;  //always good to validate / check the input
+            try
             {
-                var grossIncome = input.AnnualSalary / totalMonthInYear;
-                var incometax = (Taxbase + (input.AnnualSalary - LowerSalary) * (TaxRate / 100))/ totalMonthInYear;
+                if (employeeDetails.AnnualSalary > LowerSalaryLimit && (employeeDetails.AnnualSalary <= UpperSalaryLimit))
+                {
+                    var grossIncome = employeeDetails.AnnualSalary / totalMonthInYear;
+                    var incometax = (Taxbase + (employeeDetails.AnnualSalary - LowerSalaryLimit) * (TaxRate / 100)) / totalMonthInYear;
 
-                return new EmployeePaySlip {
-                    Name =input.FirstName+ " "+input.LastName,
-                    PayPeriod =input.PaymentStartDate,
-                    GrossIncome =Math.Round(grossIncome,0),
-                    Incometax=Math.Round(incometax,0),
-                    NetIncome =Math.Round(grossIncome-incometax,0),
-                    Super =Math.Round( grossIncome*(input.SuperRate/100))
-                };
+                    employeePaySlip= new EmployeePaySlip
+                    {
+                        Name = employeeDetails.FirstName + " " + employeeDetails.LastName,
+                        PayPeriod = employeeDetails.PaymentStartDate,
+                        GrossIncome = Math.Round(grossIncome, 0),
+                        Incometax = Math.Round(incometax, 0),
+                        NetIncome = Math.Round(grossIncome - incometax, 0),
+                        Super = Math.Round(grossIncome * (employeeDetails.SuperRate / 100))
+                    };
+                }
+                else if (_nextHandler != null)
+                    return _nextHandler.CalculateSalary(employeeDetails);
+                else return null;
             }
-            else if(_nextHandler!=null) return _nextHandler.CalculateSalary(input);
-            else return  null; 
+            catch
+            {
+                // Yell    Log    Catch  Throw  
+            }
+            return employeePaySlip;
         }
     }
 

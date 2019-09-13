@@ -18,8 +18,8 @@ namespace MYOB.Demo
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IConfigService, ConfigService>()
-                .AddScoped<ISalaryRateHandlersService, SalaryRateHandlersService>()
+            services.AddScoped<ISalaryConfigService, SalaryConfigService>()
+                .AddScoped<ISalaryRatesService, SalaryRatesService>()
                 .AddScoped<ISalaryService, SalaryService>()
                 .AddScoped<ISalaryCalculatorService, SalaryCalculatorService>();
             services.AddSwaggerGen(config => {

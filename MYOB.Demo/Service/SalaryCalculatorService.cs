@@ -9,25 +9,27 @@ namespace MYOB.Demo.Service
     {
         IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryRateHandler salaryRate);
     }
-    public class SalaryCalculatorService : ISalaryCalculatorService
+    class SalaryCalculatorService : ISalaryCalculatorService
     {
         public IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryRateHandler salaryRate)
         {
-            EmployeePaySlip output= null;
+            EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
-            if (inputs == null || inputs.Count() == 0 || salaryRate == null) yield return null;
+            if (inputs == null || inputs.Count() == 0 || salaryRate == null) //always good to validate / check the input
+                yield return employeePaySlip;
+
 
             foreach (var input in inputs)
             {
                 try
                 {
-                    output =salaryRate.CalculateSalary(input);
+                    employeePaySlip = salaryRate.CalculateSalary(input);
                 }
                 catch
                 {
                     // Yell    Log    Catch  Throw     
                 }
-                yield return output;
+                yield return employeePaySlip;
             }
         }
     }

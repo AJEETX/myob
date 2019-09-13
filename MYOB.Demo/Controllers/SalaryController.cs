@@ -5,6 +5,7 @@ using MYOB.Demo.Model;
 using MYOB.Demo.Service;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Examples;
+using Microsoft.AspNetCore.Http;
 
 namespace MYOB.Demo.Controllers
 {
@@ -18,28 +19,24 @@ namespace MYOB.Demo.Controllers
             _salaryService = salaryService;
         }
 
-        /// <summary>
-        /// testing
-        /// </summary>
-        /// <param name="json"></param>
+        /// <param name="employeeDetails"></param>
         /// <returns></returns>
         [HttpPost]
         [SwaggerRequestExample(typeof(IEnumerable<EmployeeDetails>), typeof(PayslipRequestExample))]
-        public IActionResult Post(IEnumerable<EmployeeDetails> json)
+        public IActionResult Post(IEnumerable<EmployeeDetails> employeeDetails)
         {
-            if ((!ModelState.IsValid || json == null || json.Count()==0)) return BadRequest();
+            if ((!ModelState.IsValid || employeeDetails == null || employeeDetails.Count()==0)) return BadRequest();
+            try
             {
-                try
-                {
-                    var salaryDetail = _salaryService.GetSalaryDetails(json);
-                    return Ok(new { salaryDetail });
-                }
-                catch
-                {
-                    //Shot // Lof // throw
-                }
+                var salaryDetails = _salaryService.GetSalaryDetails(employeeDetails);
+                var response = new { salaryDetails };
+                return Ok(response);
             }
-            return BadRequest();
+            catch
+            {
+                // Yell    Log    Catch  Throw  
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

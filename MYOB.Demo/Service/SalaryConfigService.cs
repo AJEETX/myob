@@ -3,23 +3,24 @@ using System;
 
 namespace MYOB.Demo.Service
 {
-    public interface IConfigService
+    public interface ISalaryConfigService
     {
         T GetSection<T>(string sectionName) where T : class;
     }
-    public class ConfigService : IConfigService
+    class SalaryConfigService : ISalaryConfigService
     {
         private readonly IConfiguration _configuration;
 
-        public ConfigService(IConfiguration configuration)
+        public SalaryConfigService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
         public T GetSection<T>(string sectionName) where T : class
         {
-            if (string.IsNullOrEmpty(sectionName)) return null;
+            T section = default(T);
 
-            T section = null;
+            if (string.IsNullOrEmpty(sectionName)) //always good to validate / check the input
+                return section;
 
             try
             {

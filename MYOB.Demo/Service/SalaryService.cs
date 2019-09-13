@@ -8,32 +8,33 @@ namespace MYOB.Demo.Service
     {
         IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> inputs);
     }
-    public class SalaryService : ISalaryService
+    class SalaryService : ISalaryService
     {
-        ISalaryRateHandlersService _salaryRateHandlersService;
+        ISalaryRatesService _salaryRatesService;
         ISalaryCalculatorService _salaryCalculatorService;
-        public SalaryService(ISalaryRateHandlersService salaryRateHandlersService, ISalaryCalculatorService salaryCalculatorService)
+        public SalaryService(ISalaryRatesService salaryRatesService, ISalaryCalculatorService salaryCalculatorService)
         {
-            _salaryRateHandlersService = salaryRateHandlersService;
+            _salaryRatesService = salaryRatesService;
             _salaryCalculatorService = salaryCalculatorService;
         }
 
         public IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> inputs)
         {
-            IEnumerable<EmployeePaySlip> salaryData = null;
-            if (inputs == null || inputs.Count()==0) return salaryData;
+            var salaryData = default(IEnumerable<EmployeePaySlip>);
+
+            if (inputs == null || inputs.Count()==0) return salaryData; //always good to validate / check the input
             try
             {
-                var salaryRateHandler = _salaryRateHandlersService.FirstSalaryRateHandler;
+                if (_salaryRatesService.SalaryRateHandler == null)
+                    return salaryData;
 
-                if (salaryRateHandler == null) return salaryData;
-
-                salaryData = _salaryCalculatorService.CalculateSalary(inputs, salaryRateHandler);
+                salaryData = _salaryCalculatorService.CalculateSalary(inputs, _salaryRatesService.SalaryRateHandler);
             }
             catch
             {
-                //shout // Log
-            } return salaryData;
+                // Yell    Log    Catch  Throw  
+            }
+            return salaryData;
         }
     }
 }
