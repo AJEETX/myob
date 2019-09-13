@@ -45,8 +45,8 @@ Below is the **input** and **output** format:
 
 | first name | last name | annual salary | super rate (%) | payment start date | 
 | --- | --- | --- | --- | --- | 
-| David | Rudd | 60050 | 9% | 01 March – 31 March 
-| Ryan | Chen | 120000 | 10% | 01 March – 31 March 
+| David | Rudd | 60050 | 9% | 01 March – 31 March |
+| Ryan | Chen | 120000 | 10% | 01 March – 31 March |
  
 **Output**
 
