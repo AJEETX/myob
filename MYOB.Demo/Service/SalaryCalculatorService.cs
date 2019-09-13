@@ -16,8 +16,9 @@ namespace MYOB.Demo.Service
             EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
             if (inputs == null || inputs.Count() == 0 || salaryRate == null) //always good to validate / check the input
+            {
                 yield return employeePaySlip;
-
+            }
 
             foreach (var input in inputs)
             {

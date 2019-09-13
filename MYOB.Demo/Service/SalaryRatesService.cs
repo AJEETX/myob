@@ -20,7 +20,10 @@ namespace MYOB.Demo.Service
             get{
                 try
                 {
-                    if(salaryRateHandler == null) GetSalaryHandler();
+                    if (salaryRateHandler == null)
+                    {
+                        GetSalaryHandler();
+                    }
                 }
                 catch
                 {
@@ -29,7 +32,7 @@ namespace MYOB.Demo.Service
                 return salaryRateHandler;
             }
         }
-        SalaryTaxTableHandler GetSalaryHandler()
+        void GetSalaryHandler()
         {
             var salaryRateHandlers = _salaryConfigService.GetSection<SalaryTaxTableHandlers>(nameof(SalaryTaxTableHandlers));
 
@@ -37,7 +40,7 @@ namespace MYOB.Demo.Service
 
                 salaryRateHandlers.TaxTable.ElementAt(i).SetNextSalaryRateHandler(salaryRateHandlers.TaxTable.ElementAt(i + 1));
 
-            return salaryRateHandlers.TaxTable.First();
+            salaryRateHandler= salaryRateHandlers.TaxTable.First();
         }
     }
 }

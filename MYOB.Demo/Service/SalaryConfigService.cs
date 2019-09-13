@@ -20,7 +20,9 @@ namespace MYOB.Demo.Service
             T section = default(T);
 
             if (string.IsNullOrEmpty(sectionName)) //always good to validate / check the input
+            {
                 return section;
+            }
 
             try
             {

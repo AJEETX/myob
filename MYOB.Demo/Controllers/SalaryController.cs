@@ -25,7 +25,10 @@ namespace MYOB.Demo.Controllers
         [SwaggerRequestExample(typeof(IEnumerable<EmployeeDetails>), typeof(PayslipRequestExample))]
         public IActionResult Post(IEnumerable<EmployeeDetails> employeeDetails)
         {
-            if ((!ModelState.IsValid || employeeDetails == null || employeeDetails.Count()==0)) return BadRequest();
+            if ((!ModelState.IsValid || employeeDetails == null || employeeDetails.Count() == 0)) //always good to validate / check the input
+            {
+                return BadRequest();
+            }
             try
             {
                 var salaryDetails = _salaryService.GetSalaryDetails(employeeDetails);

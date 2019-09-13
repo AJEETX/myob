@@ -22,12 +22,17 @@ namespace MYOB.Demo.Service
         {
             var salaryData = default(IEnumerable<EmployeePaySlip>);
 
-            if (inputs == null || inputs.Count()==0) return salaryData; //always good to validate / check the input
+            if (inputs == null || inputs.Count() == 0) //always good to validate / check the input
+            {
+                return salaryData; 
+            }
             try
             {
                 var salaryHandler = _salaryRatesService.SalaryRateHandler;
                 if (salaryHandler == null)
+                {
                     return salaryData;
+                }
 
                 salaryData = _salaryCalculatorService.CalculateSalary(inputs, salaryHandler);
             }

@@ -5,7 +5,7 @@ namespace MYOB.Demo.Domain
 {
     public abstract class SalaryTaxTableHandlerBase
     {
-        const int totalMonthInYear = 12;
+        const int totalMonthInYear = 12,hundred = 100,zero=0;
         protected SalaryTaxTableHandlerBase _nextHandler;
         public abstract decimal LowerSalaryLimit { get; set; }
         public abstract decimal UpperSalaryLimit { get; set; }
@@ -19,26 +19,31 @@ namespace MYOB.Demo.Domain
         {
             EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
-            if (employeeDetails == null || employeeDetails.AnnualSalary==0) return employeePaySlip;  //always good to validate / check the input
+            if (employeeDetails == null || employeeDetails.AnnualSalary == zero) //always good to validate / check the input
+            {
+                return employeePaySlip;
+            }
             try
             {
                 if (employeeDetails.AnnualSalary > LowerSalaryLimit && (employeeDetails.AnnualSalary <= UpperSalaryLimit))
                 {
                     var grossIncome = employeeDetails.AnnualSalary / totalMonthInYear;
-                    var incometax = (Taxbase + (employeeDetails.AnnualSalary - LowerSalaryLimit) * (TaxRate / 100)) / totalMonthInYear;
+                    var incometax = (Taxbase + (employeeDetails.AnnualSalary - LowerSalaryLimit) * (TaxRate / hundred)) / totalMonthInYear;
 
                     employeePaySlip= new EmployeePaySlip
                     {
                         Name = employeeDetails.FirstName + " " + employeeDetails.LastName,
                         PayPeriod = employeeDetails.PaymentStartDate,
-                        GrossIncome = Math.Round(grossIncome, 0),
-                        Incometax = Math.Round(incometax, 0),
-                        NetIncome = Math.Round(grossIncome - incometax, 0),
-                        Super = Math.Round(grossIncome * (employeeDetails.SuperRate / 100))
+                        GrossIncome = Math.Round(grossIncome, zero),
+                        Incometax = Math.Round(incometax, zero),
+                        NetIncome = Math.Round(grossIncome - incometax, zero),
+                        Super = Math.Round(grossIncome * (employeeDetails.SuperRate / hundred))
                     };
                 }
                 else if (_nextHandler != null)
+                {
                     return _nextHandler.CalculateSalary(employeeDetails);
+                }
                 else return null;
             }
             catch
