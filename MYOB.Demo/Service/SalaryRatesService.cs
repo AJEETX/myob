@@ -5,17 +5,17 @@ namespace MYOB.Demo.Service
 {
     public interface ISalaryRatesService
     {
-        SalaryRateHandler SalaryRateHandler { get; }
+        SalaryTaxTableHandler SalaryRateHandler { get; }
     }
     class SalaryRatesService : ISalaryRatesService
     {
         ISalaryConfigService _salaryConfigService;
-        static SalaryRateHandler salaryRateHandler = null;
+        static SalaryTaxTableHandler salaryRateHandler = null;
         public SalaryRatesService(ISalaryConfigService salaryConfigService)
         {
             _salaryConfigService = salaryConfigService;
         }
-        public SalaryRateHandler SalaryRateHandler
+        public SalaryTaxTableHandler SalaryRateHandler
         {
             get{
                 try
@@ -29,15 +29,15 @@ namespace MYOB.Demo.Service
                 return salaryRateHandler;
             }
         }
-        void GetSalaryHandler()
+        SalaryTaxTableHandler GetSalaryHandler()
         {
-            var salaryRateHandlers = _salaryConfigService.GetSection<SalaryRateHandlers>(nameof(SalaryRateHandlers));
+            var salaryRateHandlers = _salaryConfigService.GetSection<SalaryTaxTableHandlers>(nameof(SalaryTaxTableHandlers));
 
-            for (int i = 0; i < salaryRateHandlers.SalaryRateHandlerList.Count() - 1; i++)
+            for (int i = 0; i < salaryRateHandlers.TaxTable.Count() - 1; i++)
 
-                salaryRateHandlers.SalaryRateHandlerList.ElementAt(i).SetNextSalaryRateHandler(salaryRateHandlers.SalaryRateHandlerList.ElementAt(i + 1));
+                salaryRateHandlers.TaxTable.ElementAt(i).SetNextSalaryRateHandler(salaryRateHandlers.TaxTable.ElementAt(i + 1));
 
-            salaryRateHandler= salaryRateHandlers.SalaryRateHandlerList.First();
+            return salaryRateHandlers.TaxTable.First();
         }
     }
 }

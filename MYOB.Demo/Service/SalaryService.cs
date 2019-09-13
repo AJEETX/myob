@@ -25,10 +25,11 @@ namespace MYOB.Demo.Service
             if (inputs == null || inputs.Count()==0) return salaryData; //always good to validate / check the input
             try
             {
-                if (_salaryRatesService.SalaryRateHandler == null)
+                var salaryHandler = _salaryRatesService.SalaryRateHandler;
+                if (salaryHandler == null)
                     return salaryData;
 
-                salaryData = _salaryCalculatorService.CalculateSalary(inputs, _salaryRatesService.SalaryRateHandler);
+                salaryData = _salaryCalculatorService.CalculateSalary(inputs, salaryHandler);
             }
             catch
             {

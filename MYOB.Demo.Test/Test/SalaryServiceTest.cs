@@ -15,14 +15,14 @@ namespace MYOB.Demo.Test.Test
     {
         [Theory]
         [ClassData(typeof(TestDataGenerator))]
-        public void GetSalaryDetails_given_correct_employee_details_returns_salary(IEnumerable<EmployeeDetails> employeeDetails, IEnumerable<EmployeePaySlip> EmployeePaySlips)
+        public void GetSalaryDetails_with_employee_details_input_returns_salary(IEnumerable<EmployeeDetails> employeeDetails, IEnumerable<EmployeePaySlip> EmployeePaySlips)
         {
             //given
             var moqSalaryRatesService = new Mock<ISalaryRatesService>();
-            moqSalaryRatesService.Setup(m => m.SalaryRateHandler).Returns(new SalaryRateHandler());
+            moqSalaryRatesService.Setup(m => m.SalaryRateHandler).Returns(new SalaryTaxTableHandler());
 
             var moqSalaryCalculatorService = new Mock<ISalaryCalculatorService>();
-            moqSalaryCalculatorService.Setup(m => m.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryRateHandler>())).Returns(EmployeePaySlips);
+            moqSalaryCalculatorService.Setup(m => m.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryTaxTableHandler>())).Returns(EmployeePaySlips);
 
             var sut = new SalaryService(moqSalaryRatesService.Object, moqSalaryCalculatorService.Object);
 
@@ -32,8 +32,8 @@ namespace MYOB.Demo.Test.Test
 
             //then
             Assert.IsAssignableFrom<IEnumerable<EmployeePaySlip>>(actualResult);
-            moqSalaryRatesService.Verify(v => v.SalaryRateHandler, Times.Exactly(employeeDetails.Count()));
-            moqSalaryCalculatorService.Verify(v => v.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryRateHandler>()), Times.Once);
+            moqSalaryRatesService.Verify(v => v.SalaryRateHandler, Times.Once);
+            moqSalaryCalculatorService.Verify(v => v.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryTaxTableHandler>()), Times.Once);
         }
     }
 }

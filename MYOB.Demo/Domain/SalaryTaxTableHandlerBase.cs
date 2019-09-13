@@ -3,15 +3,15 @@ using System;
 
 namespace MYOB.Demo.Domain
 {
-    public abstract class SalaryRateHandlerBase
+    public abstract class SalaryTaxTableHandlerBase
     {
         const int totalMonthInYear = 12;
-        protected SalaryRateHandlerBase _nextHandler;
+        protected SalaryTaxTableHandlerBase _nextHandler;
         public abstract decimal LowerSalaryLimit { get; set; }
         public abstract decimal UpperSalaryLimit { get; set; }
         public abstract decimal Taxbase { get; set; }
         public abstract decimal TaxRate { get; set; }
-        public void SetNextSalaryRateHandler(SalaryRateHandlerBase nextHandler)
+        public void SetNextSalaryRateHandler(SalaryTaxTableHandlerBase nextHandler)
         {
             _nextHandler = nextHandler;
         }

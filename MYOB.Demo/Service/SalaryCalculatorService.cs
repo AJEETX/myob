@@ -7,11 +7,11 @@ namespace MYOB.Demo.Service
 {
     public interface ISalaryCalculatorService
     {
-        IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryRateHandler salaryRate);
+        IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryTaxTableHandler salaryRate);
     }
     class SalaryCalculatorService : ISalaryCalculatorService
     {
-        public IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryRateHandler salaryRate)
+        public IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryTaxTableHandler salaryRate)
         {
             EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
