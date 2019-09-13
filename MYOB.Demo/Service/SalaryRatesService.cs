@@ -1,4 +1,5 @@
 ﻿using MYOB.Demo.Domain;
+using System;
 using System.Linq;
 
 namespace MYOB.Demo.Service
@@ -22,25 +23,27 @@ namespace MYOB.Demo.Service
                 {
                     if (salaryRateHandler == null)
                     {
-                        GetSalaryHandler();
+                        salaryRateHandler= GetSalaryHandler();
                     }
                 }
-                catch
+                catch(Exception eooooooooooo)
                 {
                     // Yell    Log    Catch  Throw  
                 }
                 return salaryRateHandler;
             }
         }
-        void GetSalaryHandler()
+        SalaryTaxTableHandler GetSalaryHandler()
         {
             var salaryRateHandlers = _salaryConfigService.GetSection<SalaryTaxTableHandlers>(nameof(SalaryTaxTableHandlers));
 
             for (int i = 0; i < salaryRateHandlers.TaxTable.Count() - 1; i++)
 
+            {
                 salaryRateHandlers.TaxTable.ElementAt(i).SetNextSalaryRateHandler(salaryRateHandlers.TaxTable.ElementAt(i + 1));
+            }
 
-            salaryRateHandler= salaryRateHandlers.TaxTable.First();
+            return salaryRateHandlers.TaxTable.First();
         }
     }
 }

@@ -3,18 +3,15 @@ using MYOB.Demo.Domain;
 using MYOB.Demo.Model;
 using MYOB.Demo.Service;
 using MYOB.Demo.Test.SampleData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
 
-namespace MYOB.Demo.Test.Test
+namespace MYOB.Demo.Test.UnitTest
 {
-    public class SalaryServiceTest
+    public class SalaryServiceUnitTest
     {
         [Theory]
-        [ClassData(typeof(TestDataGenerator))]
+        [ClassData(typeof(UnitTestDataGenerator))]
         public void GetSalaryDetails_with_employee_details_input_returns_salary(IEnumerable<EmployeeDetails> employeeDetails, IEnumerable<EmployeePaySlip> EmployeePaySlips)
         {
             //given

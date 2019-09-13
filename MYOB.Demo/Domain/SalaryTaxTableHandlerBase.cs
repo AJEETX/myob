@@ -28,15 +28,15 @@ namespace MYOB.Demo.Domain
                 if (employeeDetails.AnnualSalary > LowerSalaryLimit && (employeeDetails.AnnualSalary <= UpperSalaryLimit))
                 {
                     var grossIncome = employeeDetails.AnnualSalary / totalMonthInYear;
-                    var incometax = (Taxbase + (employeeDetails.AnnualSalary - LowerSalaryLimit) * (TaxRate / hundred)) / totalMonthInYear;
+                    var incomeTax = (Taxbase + (employeeDetails.AnnualSalary - LowerSalaryLimit) * (TaxRate / hundred)) / totalMonthInYear;
 
                     employeePaySlip= new EmployeePaySlip
                     {
                         Name = employeeDetails.FirstName + " " + employeeDetails.LastName,
                         PayPeriod = employeeDetails.PaymentStartDate,
                         GrossIncome = Math.Round(grossIncome, zero),
-                        Incometax = Math.Round(incometax, zero),
-                        NetIncome = Math.Round(grossIncome - incometax, zero),
+                        Incometax = Math.Round(incomeTax, zero),
+                        NetIncome = Math.Round(grossIncome - incomeTax, zero),
                         Super = Math.Round(grossIncome * (employeeDetails.SuperRate / hundred))
                     };
                 }

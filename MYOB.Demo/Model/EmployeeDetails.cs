@@ -11,7 +11,6 @@ namespace MYOB.Demo.Model
         [Required]
         [JsonProperty("last name")]
         public string LastName { get; set; }
-        public Person Person { get; set; }
         [Required]
         [JsonProperty("annual salary")]
         public decimal AnnualSalary { get; set; }

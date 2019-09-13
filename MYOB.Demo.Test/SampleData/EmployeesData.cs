@@ -17,7 +17,7 @@ namespace MYOB.Demo.Test.SampleData
                     .RuleFor(p => p.LastName, f => f.Person.LastName)
                     .RuleFor(p => p.AnnualSalary, f =>Math.Round(f.Random.Decimal(0,1000000),2))
                     .RuleFor(p => p.PaymentStartDate, f => salaryForTheMonth)
-                    .RuleFor(p=>p.SuperRate,f=>Math.Round(f.Random.Decimal(0,100),2));
+                    .RuleFor(p=>p.SuperRate,f=>Math.Round(f.Random.Decimal(0,50),2));
                 return employeeDetail.Generate(new Random().Next(1,10));
             }
         }

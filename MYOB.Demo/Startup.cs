@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace MYOB.Demo
 {
@@ -25,6 +28,7 @@ namespace MYOB.Demo
             services.AddSwaggerGen(config => {
                 config.SwaggerDoc("v1", new Info { Title = "MYOB Demo API", Version = "V1" });
                 config.OperationFilter<ExamplesOperationFilter>();
+                config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
 
             services.AddMvc();

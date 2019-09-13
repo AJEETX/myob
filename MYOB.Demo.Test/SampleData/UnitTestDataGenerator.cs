@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MYOB.Demo.Test.SampleData
 {
-    public class TestDataGenerator : IEnumerable<object[]>
+    public class UnitTestDataGenerator : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
@@ -14,7 +14,6 @@ namespace MYOB.Demo.Test.SampleData
                 EmployeesData.CorrectEmployeeDetails,EmployeesData.EmployeePaySlips
             };
         }
-
         IEnumerator IEnumerable.GetEnumerator()=> GetEnumerator();
     }
 }

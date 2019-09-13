@@ -18,16 +18,22 @@ namespace MYOB.Demo.Controllers
         {
             _salaryService = salaryService;
         }
-
-        /// <param name="employeeDetails"></param>
-        /// <returns></returns>
+        ///<summary>
+        /// Gets all the employees salary detail of the given employees
+        /// </summary>
         [HttpPost]
-        [SwaggerRequestExample(typeof(IEnumerable<EmployeeDetails>), typeof(PayslipRequestExample))]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<EmployeePaySlip>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerRequestExample(typeof(IEnumerable<EmployeeDetails>), typeof(EmployeeDetailsRequestExample))]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(EmployeeSalaryExample))]
         public IActionResult Post(IEnumerable<EmployeeDetails> employeeDetails)
         {
             if ((!ModelState.IsValid || employeeDetails == null || employeeDetails.Count() == 0)) //always good to validate / check the input
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
             try
             {
