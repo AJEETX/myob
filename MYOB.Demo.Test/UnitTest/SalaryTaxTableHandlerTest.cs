@@ -1,10 +1,8 @@
 ﻿using MYOB.Demo.Domain;
 using MYOB.Demo.Model;
 using MYOB.Demo.Test.SampleData;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace MYOB.Demo.Test.UnitTest
@@ -28,7 +26,6 @@ namespace MYOB.Demo.Test.UnitTest
 
             //then
             Assert.IsType<EmployeePaySlip>(salary);
-
         }
     }
 }

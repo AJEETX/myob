@@ -38,7 +38,7 @@ namespace MYOB.Demo.Controllers
             try
             {
                 var salarySlips = _salaryService.GetSalaryDetails(employeeDetails);
-                if (salarySlips != null)
+                if (salarySlips != null && salarySlips.Count()>0)
                 {
                     return Ok(salarySlips);
                 }

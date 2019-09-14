@@ -23,7 +23,6 @@ namespace MYOB.Demo.Test.UnitTest
 
             var sut = new SalaryService(moqSalaryRatesService.Object, moqSalaryCalculatorService.Object);
 
-
             //when
             var actualResult = sut.GetSalaryDetails(employeeDetails);
 
