@@ -3,12 +3,15 @@ using System;
 
 namespace MYOB.Demo.Domain
 {
-    public interface ISalaryTaxTableHandler
+    public interface ISalaryTaxTable
     {
         decimal LowerSalaryLimit { get; set; }
         decimal UpperSalaryLimit { get; set; }
         decimal Taxbase { get; set; }
         decimal TaxRate { get; set; }
+    }
+    public interface ISalaryTaxTableHandler: ISalaryTaxTable
+    {
         void SetNextSalaryRateHandler(ISalaryTaxTableHandler nextHandler);
         EmployeePaySlip CalculateSalary(EmployeeDetails employeeDetails);
     }

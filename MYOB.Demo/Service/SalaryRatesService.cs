@@ -8,11 +8,11 @@ namespace MYOB.Demo.Service
     {
         ISalaryTaxTableHandler SalaryTaxTableHandler { get; }
     }
-    // the implementation shall need not be public
+
     class SalaryRatesService : ISalaryRatesService
     {
         ISalaryConfigService _salaryConfigService;
-        static ISalaryTaxTableHandler salaryRateHandler = null;
+        static ISalaryTaxTableHandler salaryRateHandler = default(ISalaryTaxTableHandler);
         public SalaryRatesService(ISalaryConfigService salaryConfigService)
         {
             _salaryConfigService = salaryConfigService;
@@ -39,7 +39,6 @@ namespace MYOB.Demo.Service
             var salaryRateHandlers = _salaryConfigService.GetSection<SalaryTaxTableHandlers>(nameof(SalaryTaxTableHandlers));
 
             for (int i = 0; i < salaryRateHandlers.TaxTable.Count() - 1; i++)
-
             {
                 salaryRateHandlers.TaxTable.ElementAt(i).SetNextSalaryRateHandler(salaryRateHandlers.TaxTable.ElementAt(i + 1));
             }

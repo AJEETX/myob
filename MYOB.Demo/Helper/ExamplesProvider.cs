@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MYOB.Demo.Helper
 {
-    public class EmployeeDetailsRequestExample : IExamplesProvider
+    class EmployeeDetailsRequestExample : IExamplesProvider
     {
         public object GetExamples()
         {
@@ -16,7 +16,7 @@ namespace MYOB.Demo.Helper
         }
     }
 
-    public class EmployeeSalaryExample : IExamplesProvider
+    class EmployeeSalaryExample : IExamplesProvider
     {
         public object GetExamples()
         {

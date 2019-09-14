@@ -33,12 +33,7 @@ namespace MYOB.Demo
                 config.OperationFilter<ExamplesOperationFilter>();
                 config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
-
             services.AddMvc();
-            //// Add our Config object so it can be injected
-            //services.Configure<SalaryTaxTableHandlers>(Configuration.GetSection("SalaryTaxTableHandlers"));
-            //// *If* you need access to generic IConfiguration this is **required**
-            //services.AddSingleton(Configuration);
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

@@ -9,7 +9,7 @@ namespace MYOB.Demo.Service
     {
         IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, ISalaryTaxTableHandler salaryRate);
     }
-    // the implementation shall need not be public
+
     class SalaryCalculatorService : ISalaryCalculatorService
     {
         public virtual IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> employeeDetails, ISalaryTaxTableHandler salaryRate)

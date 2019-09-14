@@ -7,7 +7,7 @@ namespace MYOB.Demo.Service
     {
         T GetSection<T>(string sectionName) where T : class;
     }
-    // the implementation shall need not be public
+
     class SalaryConfigService : ISalaryConfigService
     {
         private readonly IConfiguration _configuration;

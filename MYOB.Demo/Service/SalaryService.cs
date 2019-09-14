@@ -8,7 +8,7 @@ namespace MYOB.Demo.Service
     {
         IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> inputs);
     }
-    // the implementation shall need not be public
+
     class SalaryService : ISalaryService
     {
         ISalaryRatesService _salaryRatesService;
