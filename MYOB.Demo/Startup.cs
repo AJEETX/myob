@@ -9,6 +9,7 @@ using System.Reflection;
 using System.IO;
 using System;
 using MYOB.Demo.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MYOB.Demo
 {
@@ -33,7 +34,7 @@ namespace MYOB.Demo
                 config.OperationFilter<ExamplesOperationFilter>();
                 config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
