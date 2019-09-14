@@ -5,7 +5,8 @@
 ```
 Employee monthly pay slip When supplied employee details: 
 first name, last name, annual salary (positive integer) and super rate (0% - 50% inclusive), payment start date, 
-The program generates pay slip information with name, pay period, gross income, income tax, net income and super. 
+The program generates pay slip information with name, pay period, gross income, income tax, 
+net income and super. 
 The calculation details will be the following: 
 • pay period = per calendar month 
 • gross income = annual salary / 12 months
