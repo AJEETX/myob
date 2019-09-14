@@ -100,3 +100,7 @@ For better experience please chrome browser
 >   
 >   2. To run the tests, open the `Test Explorer` window and run those discovered tests.
 
+#### Assumptions:
+
+    The inputs and outputs are in `json` format.
+
