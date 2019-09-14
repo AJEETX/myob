@@ -11,7 +11,7 @@ namespace MYOB.Demo.Test.UnitTest
     public class SalaryServiceUnitTest
     {
         [Theory]
-        [ClassData(typeof(UnitTestDataGenerator))]
+        [ClassData(typeof(TestDataGenerator))]
         public void GetSalaryDetails_with_employee_details_input_returns_salary(IEnumerable<EmployeeDetails> employeeDetails, IEnumerable<EmployeePaySlip> EmployeePaySlips)
         {
             //given

@@ -9,9 +9,10 @@ namespace MYOB.Demo.Test.SampleData
     {
         public IEnumerator<object[]> GetEnumerator()
         {
+            var numberOfEmplopyees = new Random().Next(1, 10);
             yield return new object[]
             {
-                EmployeesData.CorrectEmployeeDetails
+                EmployeesData.CorrectEmployeeDetails(numberOfEmplopyees)
             };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

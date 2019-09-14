@@ -10,14 +10,14 @@ namespace MYOB.Demo.Test.UnitTest
     public class SalaryTaxTableHandlerTest
     {
         [Theory]
-        [ClassData(typeof(UnitTestDataGenerator))]
+        [ClassData(typeof(TestDataGenerator))]
         public void SalaryTaxTableHandler_returns_salary_details(IEnumerable<EmployeeDetails> employeeDetails, IEnumerable<EmployeePaySlip> employeePaySlips)
         {
             //given
             var sut = new SalaryTaxTableHandler();
             
-            sut.LowerSalaryLimit = 100000;
-            sut.UpperSalaryLimit = 2000000;
+            sut.LowerSalaryLimit = 10;
+            sut.UpperSalaryLimit = 20000000;
             sut.TaxRate = 10;
             sut.Taxbase = 100;
 

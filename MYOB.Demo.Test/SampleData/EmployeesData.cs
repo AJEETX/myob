@@ -7,10 +7,8 @@ namespace MYOB.Demo.Test.SampleData
 {
     class EmployeesData
     {
-        public static IEnumerable<EmployeeDetails> CorrectEmployeeDetails
+        public static IEnumerable<EmployeeDetails> CorrectEmployeeDetails(int numberOfEmplopyees)
         {
-            get
-            {
                 var salaryForTheMonth = SalaryForTheMonth(new Random().Next(0,11));
                 var employeeDetail = new Faker<EmployeeDetails>()
                     .RuleFor(p => p.FirstName, f => f.Person.FirstName)
@@ -18,8 +16,7 @@ namespace MYOB.Demo.Test.SampleData
                     .RuleFor(p => p.AnnualSalary, f =>Math.Round(f.Random.Decimal(0,1000000),2))
                     .RuleFor(p => p.PaymentStartDate, f => salaryForTheMonth)
                     .RuleFor(p=>p.SuperRate,f=>Math.Round(f.Random.Decimal(0,50),2));
-                return employeeDetail.Generate(new Random().Next(1,10));
-            }
+                return employeeDetail.Generate(numberOfEmplopyees);
         }
 
         static string SalaryForTheMonth(int month)
@@ -27,12 +24,20 @@ namespace MYOB.Demo.Test.SampleData
             DateTime now =new DateTime(2017,7,1).AddMonths(month);
             return new DateTime(now.Year, now.Month, 1).ToString("dd MMMM") + " - " + new DateTime(now.Year, now.Month, 1).AddMonths(1).AddDays(-1).ToString("dd MMMM");
         }
-        public static IEnumerable<EmployeePaySlip> EmployeePaySlips
+        public static IEnumerable<EmployeePaySlip> EmployeePaySlips(int numberOfEmplopyees)
         {
-            get
-            {
-                return new List<EmployeePaySlip> { };
-            }
+                var payPeriod = SalaryForTheMonth(new Random().Next(0, 11));
+
+                var employeeSalarySlip = new Faker<EmployeePaySlip>()
+                    .RuleFor(p => p.Name, f => f.Name.FullName())
+                    .RuleFor(p => p.PayPeriod, f => payPeriod)
+                    .RuleFor(p => p.GrossIncome, f => f.Finance.Amount(500, 10000, 2))
+                    .RuleFor(p => p.NetIncome, f => f.Finance.Amount(400, 9000, 2))
+                    .RuleFor(p => p.Incometax, f => f.Finance.Amount(100, 400, 2))
+                    .RuleFor(p => p.Super, f => f.Finance.Amount(10, 90, 2));
+
+                return employeeSalarySlip.Generate(numberOfEmplopyees);
+
         }
     }
 }
