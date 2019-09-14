@@ -3,15 +3,24 @@ using System;
 
 namespace MYOB.Demo.Domain
 {
-    public abstract class SalaryTaxTableHandlerBase
+    public interface ISalaryTaxTableHandler
+    {
+        decimal LowerSalaryLimit { get; set; }
+        decimal UpperSalaryLimit { get; set; }
+        decimal Taxbase { get; set; }
+        decimal TaxRate { get; set; }
+        void SetNextSalaryRateHandler(ISalaryTaxTableHandler nextHandler);
+        EmployeePaySlip CalculateSalary(EmployeeDetails employeeDetails);
+    }
+    abstract class SalaryTaxTableHandlerBase: ISalaryTaxTableHandler
     {
         const int totalMonthInYear = 12,hundred = 100,zero=0;
-        protected SalaryTaxTableHandlerBase _nextHandler;
+        protected ISalaryTaxTableHandler _nextHandler;
         public abstract decimal LowerSalaryLimit { get; set; }
         public abstract decimal UpperSalaryLimit { get; set; }
         public abstract decimal Taxbase { get; set; }
         public abstract decimal TaxRate { get; set; }
-        public void SetNextSalaryRateHandler(SalaryTaxTableHandlerBase nextHandler)
+        public void SetNextSalaryRateHandler(ISalaryTaxTableHandler nextHandler)
         {
             _nextHandler = nextHandler;
         }
@@ -19,7 +28,10 @@ namespace MYOB.Demo.Domain
         {
             EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
 
-            if (employeeDetails == null || employeeDetails.AnnualSalary == zero) //always good to validate / check the input
+            if (employeeDetails == null || employeeDetails.AnnualSalary == zero || 
+                string.IsNullOrWhiteSpace(employeeDetails.FirstName) || 
+                string.IsNullOrWhiteSpace(employeeDetails.LastName) ||
+                string.IsNullOrWhiteSpace(employeeDetails.PaymentStartDate)  ) //always good to validate / check the input
             {
                 return employeePaySlip;
             }

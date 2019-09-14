@@ -6,17 +6,18 @@ namespace MYOB.Demo.Service
 {
     public interface ISalaryRatesService
     {
-        SalaryTaxTableHandler SalaryRateHandler { get; }
+        ISalaryTaxTableHandler SalaryTaxTableHandler { get; }
     }
+    // the implementation shall need not be public
     class SalaryRatesService : ISalaryRatesService
     {
         ISalaryConfigService _salaryConfigService;
-        static SalaryTaxTableHandler salaryRateHandler = null;
+        static ISalaryTaxTableHandler salaryRateHandler = null;
         public SalaryRatesService(ISalaryConfigService salaryConfigService)
         {
             _salaryConfigService = salaryConfigService;
         }
-        public SalaryTaxTableHandler SalaryRateHandler
+        public virtual ISalaryTaxTableHandler SalaryTaxTableHandler
         {
             get{
                 try
@@ -33,7 +34,7 @@ namespace MYOB.Demo.Service
                 return salaryRateHandler;
             }
         }
-        SalaryTaxTableHandler GetSalaryHandler()
+        ISalaryTaxTableHandler GetSalaryHandler()
         {
             var salaryRateHandlers = _salaryConfigService.GetSection<SalaryTaxTableHandlers>(nameof(SalaryTaxTableHandlers));
 

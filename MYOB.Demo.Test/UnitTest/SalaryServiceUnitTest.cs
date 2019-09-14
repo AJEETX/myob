@@ -16,7 +16,7 @@ namespace MYOB.Demo.Test.UnitTest
         {
             //given
             var moqSalaryRatesService = new Mock<ISalaryRatesService>();
-            moqSalaryRatesService.Setup(m => m.SalaryRateHandler).Returns(new SalaryTaxTableHandler());
+            moqSalaryRatesService.Setup(m => m.SalaryTaxTableHandler).Returns(new SalaryTaxTableHandler());
 
             var moqSalaryCalculatorService = new Mock<ISalaryCalculatorService>();
             moqSalaryCalculatorService.Setup(m => m.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryTaxTableHandler>())).Returns(EmployeePaySlips);
@@ -29,7 +29,7 @@ namespace MYOB.Demo.Test.UnitTest
 
             //then
             Assert.IsAssignableFrom<IEnumerable<EmployeePaySlip>>(actualResult);
-            moqSalaryRatesService.Verify(v => v.SalaryRateHandler, Times.Once);
+            moqSalaryRatesService.Verify(v => v.SalaryTaxTableHandler, Times.Once);
             moqSalaryCalculatorService.Verify(v => v.CalculateSalary(It.IsAny<IEnumerable<EmployeeDetails>>(), It.IsAny<SalaryTaxTableHandler>()), Times.Once);
         }
     }

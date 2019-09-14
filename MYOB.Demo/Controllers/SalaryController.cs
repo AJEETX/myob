@@ -37,9 +37,11 @@ namespace MYOB.Demo.Controllers
             }
             try
             {
-                var salaryDetails = _salaryService.GetSalaryDetails(employeeDetails);
-                var response = new { salaryDetails };
-                return Ok(response);
+                var salarySlips = _salaryService.GetSalaryDetails(employeeDetails);
+                if (salarySlips != null)
+                {
+                    return Ok(salarySlips);
+                }
             }
             catch
             {

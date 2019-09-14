@@ -1,6 +1,6 @@
 ﻿namespace MYOB.Demo.Domain
 {
-    public class SalaryTaxTableHandler : SalaryTaxTableHandlerBase
+    class SalaryTaxTableHandler : SalaryTaxTableHandlerBase,ISalaryTaxTableHandler
     {
         public override decimal LowerSalaryLimit { get; set; }
         public override decimal UpperSalaryLimit { get; set; }

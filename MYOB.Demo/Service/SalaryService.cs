@@ -8,6 +8,7 @@ namespace MYOB.Demo.Service
     {
         IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> inputs);
     }
+    // the implementation shall need not be public
     class SalaryService : ISalaryService
     {
         ISalaryRatesService _salaryRatesService;
@@ -18,23 +19,24 @@ namespace MYOB.Demo.Service
             _salaryCalculatorService = salaryCalculatorService;
         }
 
-        public IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> inputs)
+        public virtual IEnumerable<EmployeePaySlip> GetSalaryDetails(IEnumerable<EmployeeDetails> employeeDetails)
         {
             var salaryData = default(IEnumerable<EmployeePaySlip>);
 
-            if (inputs == null || inputs.Count() == 0) //always good to validate / check the input
+            if (employeeDetails == null || employeeDetails.Count() == 0) //always good to validate / check the input
             {
                 return salaryData; 
             }
             try
             {
-                var salaryHandler = _salaryRatesService.SalaryRateHandler;
+                var salaryHandler = _salaryRatesService.SalaryTaxTableHandler;
+
                 if (salaryHandler == null)
                 {
                     return salaryData;
                 }
 
-                salaryData = _salaryCalculatorService.CalculateSalary(inputs, salaryHandler);
+                salaryData = _salaryCalculatorService.CalculateSalary(employeeDetails, salaryHandler);
             }
             catch
             {

@@ -7,31 +7,30 @@ namespace MYOB.Demo.Service
 {
     public interface ISalaryCalculatorService
     {
-        IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryTaxTableHandler salaryRate);
+        IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, ISalaryTaxTableHandler salaryRate);
     }
+    // the implementation shall need not be public
     class SalaryCalculatorService : ISalaryCalculatorService
     {
-        public IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> inputs, SalaryTaxTableHandler salaryRate)
+        public virtual IEnumerable<EmployeePaySlip> CalculateSalary(IEnumerable<EmployeeDetails> employeeDetails, ISalaryTaxTableHandler salaryRate)
         {
-            EmployeePaySlip employeePaySlip = default(EmployeePaySlip);
+            IEnumerable<EmployeePaySlip> employeePaySlips = default(IEnumerable<EmployeePaySlip>);
 
-            if (inputs == null || inputs.Count() == 0 || salaryRate == null) //always good to validate / check the input
+            if (employeeDetails == null || employeeDetails.Count() == 0 || salaryRate == null) //always good to validate / check the input
             {
-                yield return employeePaySlip;
+                return employeePaySlips;
             }
 
-            foreach (var input in inputs)
+            try
             {
-                try
-                {
-                    employeePaySlip = salaryRate.CalculateSalary(input);
-                }
-                catch
-                {
-                    // Yell    Log    Catch  Throw     
-                }
-                yield return employeePaySlip;
+                employeePaySlips = employeeDetails.Select(empDetail => salaryRate.CalculateSalary(empDetail));
             }
+            catch
+            {
+                // Yell    Log    Catch  Throw  
+            }
+
+            return employeePaySlips;
         }
     }
 }

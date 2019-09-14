@@ -8,6 +8,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
 using System;
+using MYOB.Demo.Domain;
 
 namespace MYOB.Demo
 {
@@ -23,8 +24,10 @@ namespace MYOB.Demo
         {
             services.AddScoped<ISalaryConfigService, SalaryConfigService>()
                 .AddScoped<ISalaryRatesService, SalaryRatesService>()
+                .AddScoped<ISalaryTaxTableHandler, SalaryTaxTableHandler>()
                 .AddScoped<ISalaryService, SalaryService>()
                 .AddScoped<ISalaryCalculatorService, SalaryCalculatorService>();
+
             services.AddSwaggerGen(config => {
                 config.SwaggerDoc("v1", new Info { Title = "MYOB Demo API", Version = "V1" });
                 config.OperationFilter<ExamplesOperationFilter>();
@@ -32,10 +35,13 @@ namespace MYOB.Demo
             });
 
             services.AddMvc();
+            //// Add our Config object so it can be injected
+            //services.Configure<SalaryTaxTableHandlers>(Configuration.GetSection("SalaryTaxTableHandlers"));
+            //// *If* you need access to generic IConfiguration this is **required**
+            //services.AddSingleton(Configuration);
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseHttpsRedirection();
             app.UseMvc().UseSwagger().UseSwaggerUI(config => {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "MYOB Demo API");
             });
