@@ -30,7 +30,7 @@ namespace MYOB.Demo
                 .AddScoped<ISalaryCalculatorService, SalaryCalculatorService>();
 
             services.AddSwaggerGen(config => {
-                config.SwaggerDoc("v1", new Info { Title = "MYOB Demo API", Version = "V1" });
+                config.SwaggerDoc("v1", new Info { Title = "Salary Calculator API", Version = "V1" });
                 config.OperationFilter<ExamplesOperationFilter>();
                 config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
