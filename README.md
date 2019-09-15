@@ -55,7 +55,6 @@ Below is the **input** and **output** format:
 | David Rudd | 01 March – 31 March | 5004 | 922 | 4082 | 450 |
 | Ryan Chen | 01 March – 31 March | 10000 | 2669 | 7331 | 1000 |
 
-<img width="1469" alt="list" src="https://github.com/AJEETX/myob/blob/master/demo.png">
 
 ## Repository codebase
  
@@ -94,6 +93,8 @@ The repository consists of projects as below:
 ```
 For better experience please chrome browser
 ```
+
+<img width="1469" alt="list" src="https://github.com/AJEETX/myob/blob/master/demo.png">
 
 ##### (b) To run the unit test project
 
