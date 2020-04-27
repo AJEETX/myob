@@ -1,6 +1,6 @@
 {
-    "name": ".net core REST API",
-    "description": "API with 4 endpoints",
+    "name": ".net core ",
+    "description": "REST API swagger for salary calculator",
     "keywords": [
       ".netcore",
       "REST API"
